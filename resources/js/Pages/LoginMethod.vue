@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import GuestLayout from '@/Layouts/GuestLayout.vue';
+import LoginLink  from '@/Components/LoginLink.vue';
 import PrimaryButton from '@/Components/base/PrimaryButton.vue';
 </script>
 
@@ -37,9 +38,9 @@ import PrimaryButton from '@/Components/base/PrimaryButton.vue';
                     </svg>
                 </template>
             </PrimaryButton>
-                <PrimaryButton text="Continue With Email" extraClasses="bg-primary-600 text-white" />
-                
-            
+            <PrimaryButton text="Continue With Email" extraClasses="bg-primary-600 text-white" />
+            <LoginLink />
+
         </div>
 
 
