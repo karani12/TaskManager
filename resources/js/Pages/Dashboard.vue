@@ -2,10 +2,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import SearchInput from '@/Components/SearchInput.vue';
-import Accordion from '@/Components/Accordion.vue';
 import Listbox from '@/Components/ListBox.vue';
 import Popover from '@/Components/Popover.vue';
 import Stats from '@/Components/Dashboard/Stats.vue';
+import TaskAccordion from '@/Components/Dashboard/TasksAccordion.vue';
+import { Icon, HighIcon, HighestIcon, LowestIcon, MediumIcon, LowIcon } from '@/Components/util/icons';
+
 
 import { ref } from 'vue';
 
@@ -16,6 +18,20 @@ const items = [
     { id: 4, name: 'Item 4' },
     { id: 5, name: 'Item 5' },
 ];
+
+const priority = [
+    { id: 1, name: 'High', icon: HighIcon, color: 'text-danger-600', },
+    { id: 2, name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
+    { id: 3, name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
+    { id: 4, name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
+    { id: 5, name: 'Low', icon: LowIcon, color: 'text-primary-600', },
+]
+
+const status = [
+    { id: 1, name: 'Pending', icon: Icon, color: 'text-warning-400', },
+    { id: 2, name: 'Completed', icon: Icon, color: 'text-success-400', },
+    { id: 3, name: 'Backlog', icon: Icon, color: 'text-gray-400', },
+]
 
 const selectedId = ref(items[0].id);
 
@@ -51,19 +67,22 @@ const selectedId = ref(items[0].id);
                     <!-- title -->
 
                     <!-- search plus filter -->
-                    <div class="filter-search flex">
-                        <div class="search w-1/3">
+                    <div class="filter-search flex mt-3 gap-3 justify-center content-center">
+                        <div class="search w-1/2">
                             <SearchInput />
                         </div>
-                        <div class="filter flex w-2/3">
-                            <div class="box relative w-1/3">
+
+                        <div class="filter w-1/2 flex gap-3">
+                            <div class="box relative w-1/2 ">
                                 <Listbox v-model="selectedId" :items="items" />
                             </div>
-                            <div class="box relative w-1/3">
+                            <div class="relative max-w-11 ">
                                 <Listbox v-model="selectedId" :items="items" />
                             </div>
                         </div>
                     </div>
+                    <!-- ttitle stuff -->
+                    <TaskAccordion />
 
                 </div>
             </div>

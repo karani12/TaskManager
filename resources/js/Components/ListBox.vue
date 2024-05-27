@@ -29,9 +29,9 @@ watch(selectedId, (newValue) => {
 </script>
 
 <template>
-    <div class="fixed w-full">
+    <div class=" w-52">
       <Listbox v-model="selectedId">
-        <div class="relative mt-1">
+        <div class="relative">
           <ListboxButton
             class="relative w-full cursor-default rounded-lg bg-white py-3 pl-3 pr-10 text-left border focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
           >
@@ -46,7 +46,7 @@ watch(selectedId, (newValue) => {
             leave-from-class="opacity-100"
             leave-to-class="opacity-0"
           >
-            <ListboxOptions class="absolute mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+            <ListboxOptions class="absolute z-[9999] mt-1 min-w-52  max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
               <ListboxOption
                 v-slot="{ active, selected }"
                 v-for="item in items"
