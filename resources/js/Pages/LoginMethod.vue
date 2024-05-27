@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import LoginLink  from '@/Components/LoginLink.vue';
-import PrimaryButton from '@/Components/base/PrimaryButton.vue';
+import LoginLink from '@/Components/AuthLink.vue';
+import PrimaryButton from '@/Components/IconButton.vue';
+import { Head, Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -38,9 +39,10 @@ import PrimaryButton from '@/Components/base/PrimaryButton.vue';
                     </svg>
                 </template>
             </PrimaryButton>
-            <PrimaryButton text="Continue With Email" extraClasses="bg-primary-600 text-white" />
-            <LoginLink />
-
+            <Link href="/register">
+                <PrimaryButton text="Continue With Email" extraClasses="bg-primary-600 text-white" />
+            </Link>
+            <LoginLink href="/login" question="Already have an account?" linkText="Log in" />
         </div>
 
 
