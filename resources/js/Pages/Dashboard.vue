@@ -74,10 +74,10 @@ const selectedId = ref(items[0].id);
 
                         <div class="filter w-1/2 flex gap-3">
                             <div class="box relative w-1/2 ">
-                                <Listbox v-model="selectedId" :items="items" />
+                                <Listbox v-model="selectedId" :items="status" name="status" />
                             </div>
                             <div class="relative max-w-11 ">
-                                <Listbox v-model="selectedId" :items="items" />
+                                <Listbox v-model="selectedId" :items="priority" name="Priority" />
                             </div>
                         </div>
                     </div>
