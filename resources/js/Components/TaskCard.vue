@@ -32,7 +32,7 @@ const props = defineProps<{
         <div class="">
             <h1 class="text-xl font-bold text-black">{{ props.task.title }}</h1>
             <p class="font-bold">{{
-                new Date(props.task.date).toDateString()
+                new Date(props.task.due_date).toDateString()
             }}</p>
             <p class="mt-3"> {{ props.task.description }}</p>
             <div class="others mt-3 flex gap-2">
@@ -51,7 +51,7 @@ const props = defineProps<{
                 <Badge v-if="props.task.priority === 'highest'" :text="props.task.priority" :icon="HighestIcon"
                     class="text-danger-600" />
                 <!-- medium -->
-                <Badge v-if="props.task.priority === 'medium'" :text="props.task.priority" :icon="Medium"
+                <Badge v-if="props.task.priority === 'medium'" :text="props.task.priority" :icon="MediumIcon"
                     class="text-primary-600" />
                 <!-- lowest -->
                 <Badge v-if="props.task.priority === 'lowest'" :text="props.task.priority" :icon="LowestIcon"

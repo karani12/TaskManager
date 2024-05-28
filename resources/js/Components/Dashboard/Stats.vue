@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import StatsCard from './StatCard.vue';
+import { HighestIcon, LowestIcon, MediumIcon, LowIcon } from '@/Components/util/icons';
+const filterByPriority = (tasks: Task[], priority: string) => {
+    return tasks.filter((task) => task.priority === priority);
+};
+
 </script>
 <template>
     <section class="flex justify-between">
@@ -12,13 +17,37 @@ import StatsCard from './StatCard.vue';
             </div>
         </div>
         <div class="stats flex space-x-3">
-            <StatsCard name="Pending" :number="10" class="bg-warning-50 justify-between" >
+            <StatsCard name="Pending" :number="$page.props.tasks.pending.length" class="bg-warning-50 justify-between">
                 <template #sub-stats>
-                    <p class="text-gray-400 mt-5">Sub Stats</p>
+                    <div class="stats flex gap-2 pt-4">
+
+                    <!-- highest priority no -->
+                    <div class="flex items-center gap-1">
+                        <span class="text-danger-600" v-html="HighestIcon"></span>
+                        <span class="text-black">
+                            {{ filterByPriority($page.props.tasks.pending, 'highest').length }}
+                        </span>
+                    </div>
+                    <!-- medium -->
+                    <div class="flex items-center gap-1">
+                        <span class="text-primary-600" v-html="MediumIcon"></span>
+                        <span class="text-black ">
+                            {{ filterByPriority($page.props.tasks.pending, 'medium').length }}
+                        </span>
+                    </div>
+                    <!-- lowest -->
+                    <div class="flex items-center gap-1">
+                        <span class="text-primary-600" v-html="LowestIcon"></span>
+                        <span class="text-black	">
+                            {{ filterByPriority($page.props.tasks.pending, 'lowest').length }}
+                        </span>
+                    </div>
+                </div>
+
                 </template>
             </StatsCard>
-            <StatsCard name="Completed" :number="20" class="bg-success-50" />
-            <StatsCard name="Total" :number="30" class="bg-gray-50" />
+            <StatsCard name="Completed" :number="$page.props.tasks.completed.length" class="bg-success-50" />
+            <StatsCard name="Backlog" :number="$page.props.tasks.backlog.length" class="bg-gray-50" />
         </div>
     </section>
 
