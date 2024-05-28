@@ -6,12 +6,19 @@ import Listbox from '@/Components/ListBox.vue';
 import Popover from '@/Components/Popover.vue';
 import Stats from '@/Components/Dashboard/Stats.vue';
 import TaskAccordion from '@/Components/Dashboard/TasksAccordion.vue';
-import { Icon, HighIcon, HighestIcon, LowestIcon, MediumIcon, LowIcon } from '@/Components/util/icons';
+import Icon from '@/Components/Icons/Icon.vue';
+import HighIcon from '@/Components/Icons/HighIcon.vue';
+import HighestIcon from '@/Components/Icons/HighestIcon.vue';
+import MediumIcon from '@/Components/Icons/MediumIcon.vue';
+import LowIcon from '@/Components/Icons/LowIcon.vue';
+import LowestIcon from '@/Components/Icons/LowestIcon.vue';
+
+
 import CreateTask from '@/Components/Dashboard/CreateTask.vue';
 import TaskCard from '@/Components/TaskCard.vue';
 
 
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, h } from 'vue';
 const {
     visit,
     props,
@@ -20,8 +27,8 @@ const {
 
 
 const priority = [
-    { id: 'all', name: 'All', icon: Icon, color: 'text-gray-400', },
-    { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
+    { id: 'all', name: 'All', icon: h(Icon), color: 'text-gray-400', },
+    { id: 'high', name: 'High', icon: h(HighIcon), color: 'text-danger-600', },
     { id: 'highest', name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
     { id: 'medium', name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
     { id: 'lowest', name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
