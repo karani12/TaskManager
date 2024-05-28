@@ -6,6 +6,8 @@ import { defineProps } from 'vue';
 import { Icon, HighIcon, HighestIcon, LowestIcon, MediumIcon, LowIcon } from './util/icons';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/vue/20/solid';
 import { Link, useForm, router } from '@inertiajs/vue3'
+import EditTask from '@/Components/Dashboard/EditTask.vue';
+import { ref } from 'vue';
 
 type Task = {
     id: number;
@@ -48,7 +50,7 @@ const updateTask = (newStatus: string) => {
             });
         },
     });
- 
+
 };
 
 
@@ -63,16 +65,20 @@ const deleTeTask = () => {
     });
 };
 
+const showModal = ref(false);
+
 
 </script>
 
 <template>
     <section class="border relative  rounded-md text-base p-4 my-3 flex justify-between">
+        <EditTask :showModal="showModal" :task="task" />
+
         <div class="">
             <h1 class="text-xl font-bold text-black">{{ props.task.title }}</h1>
             <p class="font-bold">{{
                 new Date(props.task.due_date).toDateString()
-                }}</p>
+            }}</p>
             <p class="mt-3"> {{ props.task.description }}</p>
             <div class="others mt-3 flex gap-2">
                 <Badge v-if="props.task.status === 'pending'" :text="props.task.status" :icon="Icon"
@@ -120,7 +126,8 @@ const deleTeTask = () => {
 
                             Move to backlog
                         </button>
-                        <button class="flex items-center gap-2 text-black">
+                        <button class="flex items-center gap-2 text-black"
+                            @click="showModal = true">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -133,7 +140,7 @@ const deleTeTask = () => {
                             Edit Todo
                         </button>
 
-                        <button class="text-danger-600 flex items-center gap-2"@click="deleTeTask">
+                        <button class="text-danger-600 flex items-center gap-2" @click="deleTeTask">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"

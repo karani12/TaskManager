@@ -19,9 +19,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard',
-    [
-        'tasks' => Auth::user()->tasks->groupBy('status') 
-    ]
+    [ 'tasks' => Auth::user()->tasks->groupBy('status') ]
 
 );
 })->middleware(['auth', 'verified'])->name('dashboard');
