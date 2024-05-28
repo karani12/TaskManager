@@ -19,13 +19,35 @@ class TaskController extends Controller
     {
         $tasks = $this->filterTasks();
         Log::info('TaskController@index', ['tasks' => $tasks]);
-        return Inertia::render('Dashboard', ["tasks" => $tasks]);
+        return Inertia::render('Dashboard', [
+            "tasks" => $tasks,
+            "completedTasks" => Auth::user()->tasks->where('status', 'completed')->count(),
+            "pendingTasks" => Auth::user()->tasks->where('status', 'pending')->count(),
+            "backlogTasks" => Auth::user()->tasks->where('status', 'backlog')->count(),
+            // subtasks
+            "substats" => [
+                "pendingHighest" => Auth::user()->tasks->where('status', 'pending')->where('priority', 'highest')->count(),
+                "pendingMedium" => Auth::user()->tasks->where('status', 'pending')->where('priority', 'medium')->count(),
+                "pendingLowest" => Auth::user()->tasks->where('status', 'pending')->where('priority', 'lowest')->count(),
+            ]
+        ]);
     }
 
     private function filterTasks()
     {
         $priority = request('priority');
         $status = request('status');
+
+        if ($search = request('search')) {
+            log::info('search', ['search' => $search]);
+            return $this->searchQuery($search);
+        }
+
+
+        if (!$priority && !$status) {
+            return $this->filterByNone();
+        }
+
         if ($status != 'all' && $priority == 'all') {
             return $this->filterByStatus($status);
         }
@@ -54,6 +76,12 @@ class TaskController extends Controller
     private function filterByNone()
     {
         return Auth::user()->tasks->groupBy('status');
+    }
+
+    // return search results
+    private function searchQuery($search)
+    {
+        return Auth::user()->tasks->where('title', 'like', "$search%");
     }
 
 
