@@ -48,12 +48,13 @@ watch([selectedPriority, selectedStatus], () => {
 
 
 });
+const searchValue = ref('');
 
-
-
-
-
-
+watch(searchValue, () => {
+    router.get('/dashboard', {
+        search: searchValue.value,
+    }, { preserveState: true })
+});
 
 
 const showModal = ref(false);
@@ -93,7 +94,7 @@ const showModal = ref(false);
                     <!-- search plus filter -->
                     <div class="filter-search flex mt-3 gap-3 justify-center content-center">
                         <div class="search w-1/2">
-                            <SearchInput />
+                            <SearchInput v-model="searchValue" />
                         </div>
 
                         <div class="filter w-1/2 flex gap-3">
@@ -108,10 +109,8 @@ const showModal = ref(false);
                     <!-- modal -->
                     <CreateTask :showModal="showModal" />
                     <!-- ttitle stuff -->
-                    <TaskAccordion v-if="selectedStatus === 'all' && selectedPriority === 'all'" />
-                    <div v-else
-                    v-for="task in $page.props.tasks"
-                     class="seen ">
+                    <TaskAccordion v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
+                    <div v-else v-for="task in $page.props.tasks" class="seen ">
                         <TaskCard :task="task" />
 
                     </div>

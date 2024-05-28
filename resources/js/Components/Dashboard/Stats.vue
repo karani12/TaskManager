@@ -16,35 +16,35 @@ const filterByPriority = (tasks: Task[], priority: string) => {
                 <p class="text-base text-gray-500">{{ $page.props.auth.user.email }}</p>
             </div>
         </div>
-        <!-- <div class="stats flex space-x-3">
-            <StatsCard name="Pending" :number="$page.props.tasks.pending.length" class="bg-warning-50 justify-between">
+        <div class="stats flex space-x-3">
+            <StatsCard name="Pending" :number="$page.props.completedTasks" class="bg-warning-50 justify-between">
                 <template #sub-stats>
                     <div class="stats flex gap-2 pt-4">
                     <div class="flex items-center gap-1">
                         <span class="text-danger-600" v-html="HighestIcon"></span>
                         <span class="text-black">
-                            {{ filterByPriority($page.props.tasks.pending, 'highest').length }}
+                            {{ $page.props.substats.pendingHighest }}
                         </span>
                     </div>
                     <div class="flex items-center gap-1">
                         <span class="text-primary-600" v-html="MediumIcon"></span>
                         <span class="text-black ">
-                            {{ filterByPriority($page.props.tasks.pending, 'medium').length }}
+                            {{ $page.props.substats.pendingMedium }}
                         </span>
                     </div>
                     <div class="flex items-center gap-1">
                         <span class="text-primary-600" v-html="LowestIcon"></span>
                         <span class="text-black	">
-                            {{ filterByPriority($page.props.tasks.pending, 'lowest').length }}
+                            {{ $page.props.substats.pendingLowest }}
                         </span>
                     </div>
                 </div>
 
                 </template>
             </StatsCard>
-            <StatsCard name="Completed" :number="$page.props.tasks.completed.length" class="bg-success-50" />
-            <StatsCard name="Backlog" :number="$page.props.tasks.backlog.length" class="bg-gray-50" />
-        </div> -->
+            <StatsCard name="Completed" :number="$page.props.completedTasks" class="bg-success-50" />
+            <StatsCard name="Backlog" :number="$page.props.backlogTasks" class="bg-gray-50" />
+        </div>
     </section>
 
 </template>
