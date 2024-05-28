@@ -27,8 +27,8 @@ const {
 
 
 const priority = [
-    { id: 'all', name: 'All', icon: h(Icon), color: 'text-gray-400', },
-    { id: 'high', name: 'High', icon: h(HighIcon), color: 'text-danger-600', },
+    { id: 'all', name: 'All', icon: Icon, color: 'text-gray-400', },
+    { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
     { id: 'highest', name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
     { id: 'medium', name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
     { id: 'lowest', name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
