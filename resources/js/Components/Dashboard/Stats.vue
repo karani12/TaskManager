@@ -20,7 +20,6 @@ const filterByPriority = (tasks: Task[], priority: string) => {
             <StatsCard name="Pending" :number="$page.props.tasks.pending.length" class="bg-warning-50 justify-between">
                 <template #sub-stats>
                     <div class="stats flex gap-2 pt-4">
-
                     <!-- highest priority no -->
                     <div class="flex items-center gap-1">
                         <span class="text-danger-600" v-html="HighestIcon"></span>

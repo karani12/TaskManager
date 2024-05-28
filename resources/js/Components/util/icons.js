@@ -1,6 +1,7 @@
 export const Icon = `<svg width="16" height="9" viewBox="0 0 16 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect y="0.5" width="16" height="8" rx="4" class="fill-current"/>
-</svg>`;
+<rect y="0.5" width="16" height="8" rx="4" class="fill-current"/>
+</svg>
+`;
 
 export const HighIcon = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
   <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/>
