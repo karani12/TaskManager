@@ -24,7 +24,15 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         $request->validated();
-        Auth::user()->tasks->create($request->all());
+        Task::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'priority' => $request->priority,
+            'status' => $request->status,
+            'due_date' => $request->due_date,
+            'user_id' => auth()->id(),
+        ]);
+       
 
     }
 
