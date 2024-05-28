@@ -45,15 +45,14 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('tasks.update'), {
-        onFinish: () => {
-        console.log('submitted');
-
+    form.patch(route('tasks.update', task.id), {
+        onSuccess: () => {
+            showModal.value = false;
             router.reload({
                 only: ['tasks'],
+                preserveState: true,
             });
-
-        },
+        }
     });
 };
 

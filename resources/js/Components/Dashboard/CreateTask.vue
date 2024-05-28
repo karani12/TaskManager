@@ -44,6 +44,7 @@ const submit = () => {
             form.reset('title', 'description', 'due_date', 'priority', 'status');
             router.reload({
                 only: ['tasks'],
+                preserveState: true,
             });
 
         },

@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class TaskController extends Controller
 {
@@ -15,23 +17,47 @@ class TaskController extends Controller
      */
     public function index()
     {
+        $tasks = $this->filterTasks();
+        Log::info('TaskController@index', ['tasks' => $tasks]);
+        return Inertia::render('Dashboard', ["tasks" => $tasks]);
+    }
+
+    private function filterTasks()
+    {
         $priority = request('priority');
         $status = request('status');
-
-        $tasks = Auth::user()->tasks;
-
-        if ($priority && $priority !== 'all') {
-            $tasks->where('priority', $priority);
+        if ($status != 'all' && $priority == 'all') {
+            return $this->filterByStatus($status);
         }
-
-        if ($status && $status !== 'all') {
-            $tasks->where('status', $status);
+        if ($status == 'all' && $priority != 'all') {
+            return $this->filterByPriority($priority);
         }
-
-        $filteredTasks = $tasks->get();
-
-        return $filteredTasks;
+        if ($status != 'all' && $priority != 'all') {
+            return $this->filterByStatusAndPriority($status, $priority);
+        }
+        return $this->filterByNone();
     }
+
+    private function filterByStatus($status)
+    {
+        return auth()->user()->tasks->where('status', $status);
+    }
+    private function filterByPriority($priority)
+    {
+        return auth()->user()->tasks->where('priority', $priority);
+    }
+    private function filterByStatusAndPriority($status, $priority)
+    {
+        return auth()->user()->tasks->where('status', $status)->where('priority', $priority);
+    }
+
+    private function filterByNone()
+    {
+        return Auth::user()->tasks->groupBy('status');
+    }
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -52,6 +78,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        Log::info('TaskController@update', ['task' => $task, 'request' => $request]);
         $request->validated();
 
         $task->update([
