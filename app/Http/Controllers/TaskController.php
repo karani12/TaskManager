@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
@@ -52,6 +53,7 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        Log::info('TaskController@update', ['task' => $task, 'request' => $request]);
         $request->validated();
 
         $task->update([
