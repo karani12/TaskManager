@@ -5,8 +5,8 @@ import { ChevronUpIcon } from '@heroicons/vue/20/solid'
 
 
 <template>
-    <div class="w-full px-4">
-      <div class="mx-auto w-full max-w-md p-2 border-b-2 border-slate-400">
+    <div class="w-full">
+      <div class="mx-auto w-full  p-2 border-b-2 border-slate-400">
         <Disclosure  v-slot="{ open }">
           <DisclosureButton
             class="flex w-full justify-between  shadow-none  px-4 py-2 text-left text-sm font-medium
