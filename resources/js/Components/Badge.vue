@@ -11,7 +11,8 @@ const base = 'px-4 min-w-28  rounded-md flex flex-col ';
 
 <template>
     <div class=" flex items-center gap-1 w-fit px-1 justify-center bg-gray-50 rounded-lg ">
-        <div :class="fill" v-html="props.icon"></div>
+        <component :is="props.icon" :class="props.fill"></component>
+
         <p class="text-black">{{ props.text }}</p>
     </div>
 </template>

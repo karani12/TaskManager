@@ -18,21 +18,20 @@ import CreateTask from '@/Components/Dashboard/CreateTask.vue';
 import TaskCard from '@/Components/TaskCard.vue';
 
 
-import { ref, watch, computed, h } from 'vue';
+import { ref, watch, computed, h, onMounted } from 'vue';
 const {
     visit,
     props,
-
 } = usePage();
 
 
 const priority = [
     { id: 'all', name: 'All', icon: Icon, color: 'text-gray-400', },
-    { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
     { id: 'highest', name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
+    { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
     { id: 'medium', name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
-    { id: 'lowest', name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
     { id: 'medium', name: 'Low', icon: LowIcon, color: 'text-primary-600', },
+    { id: 'lowest', name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
 ]
 
 const status = [
@@ -61,6 +60,15 @@ watch(searchValue, () => {
     router.get('/dashboard', {
         search: searchValue.value,
     }, { preserveState: true })
+});
+
+onMounted(() => {
+  const page = usePage();
+  const urlParams = new URLSearchParams(window.location.search);
+
+  if (urlParams.has('force-reload')) {
+    window.location.href = window.location.origin;
+  }
 });
 
 
@@ -116,10 +124,13 @@ const showModal = ref(false);
                     <!-- modal -->
                     <CreateTask :showModal="showModal" />
                     <!-- ttitle stuff -->
-                    <TaskAccordion v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
-                    <div v-else v-for="task in $page.props.tasks" class="seen ">
-                        <TaskCard :task="task" />
+                    <div class="min-h-[300px]">
 
+                        <TaskAccordion class="min-h-[300px]" v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
+                        <div  v-else v-for="task in $page.props.tasks" class="seen ">
+                            <TaskCard :task="task" />
+    
+                        </div>
                     </div>
 
                 </div>
