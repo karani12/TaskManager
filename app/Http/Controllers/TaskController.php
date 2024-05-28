@@ -15,7 +15,22 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return Auth::user()->tasks;
+        $priority = request('priority');
+        $status = request('status');
+
+        $tasks = Auth::user()->tasks;
+
+        if ($priority && $priority !== 'all') {
+            $tasks->where('priority', $priority);
+        }
+
+        if ($status && $status !== 'all') {
+            $tasks->where('status', $status);
+        }
+
+        $filteredTasks = $tasks->get();
+
+        return $filteredTasks;
     }
 
     /**
@@ -32,11 +47,9 @@ class TaskController extends Controller
             'due_date' => $request->due_date,
             'user_id' => auth()->id(),
         ]);
-       
-
     }
 
-   
+
     public function update(UpdateTaskRequest $request, Task $task)
     {
         $request->validated();
@@ -54,7 +67,7 @@ class TaskController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Task $task)
-    { 
+    {
         Auth::user()->tasks->delete($task);
     }
 
@@ -63,5 +76,4 @@ class TaskController extends Controller
         $tasks = Auth::user()->tasks->where('title', 'like', "%$search%")->get();
         return $tasks;
     }
-
 }

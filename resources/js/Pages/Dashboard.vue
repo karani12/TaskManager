@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import SearchInput from '@/Components/SearchInput.vue';
 import Listbox from '@/Components/ListBox.vue';
 import Popover from '@/Components/Popover.vue';
@@ -10,7 +10,13 @@ import { Icon, HighIcon, HighestIcon, LowestIcon, MediumIcon, LowIcon } from '@/
 import CreateTask from '@/Components/Dashboard/CreateTask.vue';
 
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+const {
+     visit,
+    props,
+
+ } = usePage();
+
 
 const items = [
     { id: 1, name: 'Item 1' },
@@ -21,20 +27,43 @@ const items = [
 ];
 
 const priority = [
-    { id: 1, name: 'High', icon: HighIcon, color: 'text-danger-600', },
-    { id: 2, name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
-    { id: 3, name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
-    { id: 4, name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
-    { id: 5, name: 'Low', icon: LowIcon, color: 'text-primary-600', },
+    {id: 'all', name: 'All', icon: Icon, color: 'text-gray-400',},
+    { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
+    { id: 'highest', name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
+    { id: 'medium', name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
+    { id: 'lowest', name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
+    { id: 'medium', name: 'Low', icon: LowIcon, color: 'text-primary-600', },
 ]
 
 const status = [
-    { id: 1, name: 'Pending', icon: Icon, color: 'text-warning-400', },
-    { id: 2, name: 'Completed', icon: Icon, color: 'text-success-400', },
-    { id: 3, name: 'Backlog', icon: Icon, color: 'text-gray-400', },
+    {id: 'all', name: 'All', icon: Icon, color: 'text-gray-400',},
+    { id: 'pending', name: 'Pending', icon: Icon, color: 'text-warning-400', },
+    { id: 'completed', name: 'Completed', icon: Icon, color: 'text-success-400', },
+    { id: 'backlog', name: 'Backlog', icon: Icon, color: 'text-gray-400', },
 ]
 
-const selectedId = ref(items[0].id);
+const selectedPriority = ref(priority[0].id);
+const selectedStatus = ref(status[0].id);
+const query = ref({
+    priority: selectedPriority.value,
+    status: selectedStatus.value,
+});
+
+const updateQuery = () => {
+  const query = {
+    priority: selectedPriority.value === 'all' ? '' : selectedPriority.value,
+    status: selectedStatus.value === 'all' ? '' : selectedStatus.value,
+  }
+}
+//   watch for change
+watch([selectedPriority, selectedStatus], () => {
+    updateQuery();
+});
+
+
+
+
+
 
 const showModal = ref(false);
 
@@ -79,10 +108,10 @@ const showModal = ref(false);
 
                         <div class="filter w-1/2 flex gap-3">
                             <div class="box relative w-1/2 ">
-                                <Listbox v-model="selectedId" :items="status" name="status" />
+                                <Listbox v-model="selectedPriority" :items="status" name="status" />
                             </div>
                             <div class="relative max-w-11 ">
-                                <Listbox v-model="selectedId" :items="priority" name="Priority" />
+                                <Listbox v-model="selectedStatus" :items="priority" name="Priority" />
                             </div>
                         </div>
                     </div>
