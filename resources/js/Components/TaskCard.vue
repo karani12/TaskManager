@@ -3,7 +3,12 @@ import Popover from './Popover.vue';
 import Badge from './Badge.vue';
 import { ChevronUpIcon } from '@heroicons/vue/20/solid';
 import { defineProps } from 'vue';
-import { Icon, HighIcon, HighestIcon, LowestIcon, MediumIcon, LowIcon } from './util/icons';
+import Icon from '@/Components/Icons/Icon.vue';
+import HighIcon from '@/Components/Icons/HighIcon.vue';
+import HighestIcon from '@/Components/Icons/HighestIcon.vue';
+import MediumIcon from '@/Components/Icons/MediumIcon.vue';
+import LowIcon from '@/Components/Icons/LowIcon.vue';
+import LowestIcon from '@/Components/Icons/LowestIcon.vue';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/vue/20/solid';
 import { Link, useForm, router } from '@inertiajs/vue3'
 import EditTask from '@/Components/Dashboard/EditTask.vue';
