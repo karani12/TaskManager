@@ -34,6 +34,12 @@ class SocialMediaLogin extends Controller
 
     public function handleGoogleCallback()
     {
+        try {
+            $user = Socialite::driver('google')->user();
+        } catch (\Exception $e) {
+            return redirect(route('login-method'));
+        }
+        
         $user = Socialite::driver('google')
             ->stateless()
             ->user();
