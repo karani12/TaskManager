@@ -5,9 +5,7 @@ import { ChevronUpIcon } from '@heroicons/vue/20/solid';
 import { defineProps } from 'vue';
 import { Icon, HighIcon, HighestIcon, LowestIcon, MediumIcon, LowIcon } from './util/icons';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/vue/20/solid';
-
-
-
+import { Link, useForm, router } from '@inertiajs/vue3'
 
 type Task = {
     id: number;
@@ -25,6 +23,47 @@ type Task = {
 const props = defineProps<{
     task: Task;
 }>();
+
+
+// forms
+
+const form = useForm({
+    id: props.task.id,
+    status: props.task.status,
+    title: props.task.title,
+    description: props.task.description,
+    due_date: props.task.due_date,
+    priority: props.task.priority,
+
+});
+
+const updateTask = (newStatus: string) => {
+    console.log(newStatus);
+    form.status = newStatus;
+    form.patch(route('tasks.update', props.task.id), {
+        onFinish: () => {
+            form.reset('status');
+            router.reload({
+                only: ['tasks'],
+            });
+        },
+    });
+ 
+};
+
+
+const deleTeTask = () => {
+    form.delete(route('tasks.destroy', props.task.id), {
+        onFinish: () => {
+            form.reset('status');
+            router.reload({
+                only: ['tasks'],
+            });
+        },
+    });
+};
+
+
 </script>
 
 <template>
@@ -33,7 +72,7 @@ const props = defineProps<{
             <h1 class="text-xl font-bold text-black">{{ props.task.title }}</h1>
             <p class="font-bold">{{
                 new Date(props.task.due_date).toDateString()
-            }}</p>
+                }}</p>
             <p class="mt-3"> {{ props.task.description }}</p>
             <div class="others mt-3 flex gap-2">
                 <Badge v-if="props.task.status === 'pending'" :text="props.task.status" :icon="Icon"
@@ -65,12 +104,12 @@ const props = defineProps<{
             <Popover>
                 <template #panel>
                     <div class="flex flex-col gap-2 space-y-3">
-                        <button class="text-success-600 flex items-center gap-2">
+                        <button class="text-success-600 flex items-center gap-2" @click="updateTask('completed')">
                             <CheckCircleIcon class="h-6 w-6" />
                             Mark as Completed
 
                         </button>
-                        <button class="flex items-center gap-2 text-black">
+                        <button class="flex items-center gap-2 text-black" @click="updateTask('backlog')">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -94,7 +133,7 @@ const props = defineProps<{
                             Edit Todo
                         </button>
 
-                        <button class="text-danger-600 flex items-center gap-2">
+                        <button class="text-danger-600 flex items-center gap-2"@click="deleTeTask">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -109,5 +148,4 @@ const props = defineProps<{
             </Popover>
         </div>
     </section>
-
 </template>

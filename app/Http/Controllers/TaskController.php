@@ -40,8 +40,6 @@ class TaskController extends Controller
             'status' => $request->status,
             'due_date' => $request->due_date,
         ]);
-
-        return $task;
     }
 
     /**
