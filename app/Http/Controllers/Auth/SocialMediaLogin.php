@@ -39,7 +39,7 @@ class SocialMediaLogin extends Controller
         } catch (\Exception $e) {
             return redirect(route('login-method'));
         }
-        
+
         $user = Socialite::driver('google')
             ->stateless()
             ->user();
@@ -63,6 +63,7 @@ class SocialMediaLogin extends Controller
             Auth::login($newUser);
             return redirect(route('dashboard', absolute: false));
         }
+        return redirect(route('dashboard', absolute: false));
 
     }
 }
