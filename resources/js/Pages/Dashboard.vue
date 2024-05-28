@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, usePage } from '@inertiajs/vue3';
+import { Head, usePage, router } from '@inertiajs/vue3';
 import SearchInput from '@/Components/SearchInput.vue';
 import Listbox from '@/Components/ListBox.vue';
 import Popover from '@/Components/Popover.vue';
@@ -8,26 +8,19 @@ import Stats from '@/Components/Dashboard/Stats.vue';
 import TaskAccordion from '@/Components/Dashboard/TasksAccordion.vue';
 import { Icon, HighIcon, HighestIcon, LowestIcon, MediumIcon, LowIcon } from '@/Components/util/icons';
 import CreateTask from '@/Components/Dashboard/CreateTask.vue';
+import TaskCard from '@/Components/TaskCard.vue';
 
 
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 const {
-     visit,
+    visit,
     props,
 
- } = usePage();
+} = usePage();
 
-
-const items = [
-    { id: 1, name: 'Item 1' },
-    { id: 2, name: 'Item 2' },
-    { id: 3, name: 'Item 3' },
-    { id: 4, name: 'Item 4' },
-    { id: 5, name: 'Item 5' },
-];
 
 const priority = [
-    {id: 'all', name: 'All', icon: Icon, color: 'text-gray-400',},
+    { id: 'all', name: 'All', icon: Icon, color: 'text-gray-400', },
     { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
     { id: 'highest', name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
     { id: 'medium', name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
@@ -36,7 +29,7 @@ const priority = [
 ]
 
 const status = [
-    {id: 'all', name: 'All', icon: Icon, color: 'text-gray-400',},
+    { id: 'all', name: 'All', icon: Icon, color: 'text-gray-400', },
     { id: 'pending', name: 'Pending', icon: Icon, color: 'text-warning-400', },
     { id: 'completed', name: 'Completed', icon: Icon, color: 'text-success-400', },
     { id: 'backlog', name: 'Backlog', icon: Icon, color: 'text-gray-400', },
@@ -44,21 +37,19 @@ const status = [
 
 const selectedPriority = ref(priority[0].id);
 const selectedStatus = ref(status[0].id);
-const query = ref({
-    priority: selectedPriority.value,
-    status: selectedStatus.value,
+
+
+
+watch([selectedPriority, selectedStatus], () => {
+    router.get('/dashboard', {
+        priority: selectedPriority.value,
+        status: selectedStatus.value,
+    }, { preserveState: true })
+
+
 });
 
-const updateQuery = () => {
-  const query = {
-    priority: selectedPriority.value === 'all' ? '' : selectedPriority.value,
-    status: selectedStatus.value === 'all' ? '' : selectedStatus.value,
-  }
-}
-//   watch for change
-watch([selectedPriority, selectedStatus], () => {
-    updateQuery();
-});
+
 
 
 
@@ -85,8 +76,7 @@ const showModal = ref(false);
                         <h1 class="text-3xl font-semibold text-gray-900">Todos</h1>
                         <div class="create-tasks">
                             <button class="bg-primary-600 text-white px-4 py-2 rounded-md flex gap-2"
-                                @click="showModal=true"
-                            >
+                                @click="showModal = true">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -108,17 +98,23 @@ const showModal = ref(false);
 
                         <div class="filter w-1/2 flex gap-3">
                             <div class="box relative w-1/2 ">
-                                <Listbox v-model="selectedPriority" :items="status" name="status" />
+                                <Listbox v-model="selectedPriority" :items="priority" name="status" />
                             </div>
                             <div class="relative max-w-11 ">
-                                <Listbox v-model="selectedStatus" :items="priority" name="Priority" />
+                                <Listbox v-model="selectedStatus" :items="status" name="Priority" />
                             </div>
                         </div>
                     </div>
                     <!-- modal -->
                     <CreateTask :showModal="showModal" />
                     <!-- ttitle stuff -->
-                    <TaskAccordion />
+                    <TaskAccordion v-if="selectedStatus === 'all' && selectedPriority === 'all'" />
+                    <div v-else
+                    v-for="task in $page.props.tasks"
+                     class="seen ">
+                        <TaskCard :task="task" />
+
+                    </div>
 
                 </div>
             </div>

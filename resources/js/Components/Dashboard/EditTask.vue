@@ -48,7 +48,10 @@ const submit = () => {
     form.patch(route('tasks.update', task.id), {
         onSuccess: () => {
             showModal.value = false;
-            router.go(-1);
+            router.reload({
+                only: ['tasks'],
+                preserveState: true,
+            });
         }
     });
 };
