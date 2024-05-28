@@ -8,15 +8,16 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\SocialMediaLogin;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('login-method',function(){
-        return Inertia::render('LoginMethod');
-    })->name('login-method');
+    Route::get('login-method',[SocialMediaLogin::class,'showLoginMethod'])->name('login-method');
+    Route::get('login/google',[SocialMediaLogin::class,'redirectToGoogle'])->name('login.google');  
+    Route::get('auth/google/callback',[SocialMediaLogin::class,'handleGoogleCallback']);
 
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');

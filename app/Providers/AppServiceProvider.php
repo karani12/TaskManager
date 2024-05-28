@@ -2,10 +2,17 @@
 
 namespace App\Providers;
 
+use Illuminate\Console\Scheduling\Event; 
 use Illuminate\Support\ServiceProvider;
-
+use SocialiteProviders\Manager\SocialiteWasCalled;
+use SocialiteProviders\Google\Provider; 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $listen = [
+        SocialiteWasCalled::class => [
+            Provider::class,
+        ],
+    ];
     /**
      * Register any application services.
      */
@@ -19,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+     
+    
+       
     }
 }

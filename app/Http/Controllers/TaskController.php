@@ -24,7 +24,6 @@ class TaskController extends Controller
             "completedTasks" => Auth::user()->tasks->where('status', 'completed')->count(),
             "pendingTasks" => Auth::user()->tasks->where('status', 'pending')->count(),
             "backlogTasks" => Auth::user()->tasks->where('status', 'backlog')->count(),
-            // subtasks
             "substats" => [
                 "pendingHighest" => Auth::user()->tasks->where('status', 'pending')->where('priority', 'highest')->count(),
                 "pendingMedium" => Auth::user()->tasks->where('status', 'pending')->where('priority', 'medium')->count(),
