@@ -38,11 +38,12 @@ const submit = () => {
     form.post(route('tasks.store'), {
         onFinish: () => {
             form.reset('title', 'description', 'due_date', 'priority', 'status');
-            // We will show a toast message here
-          
+            showModal.value = false;
 
         },
         only: ['tasks'],
+        preserveState: true,
+        preserveScroll: true,
     });
 };
 

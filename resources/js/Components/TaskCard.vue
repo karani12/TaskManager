@@ -44,7 +44,6 @@ const form = useForm({
 });
 
 const updateTask = (newStatus: string) => {
-    console.log(newStatus);
     form.status = newStatus;
     form.patch(route('tasks.update', props.task.id), {
         onFinish: () => {

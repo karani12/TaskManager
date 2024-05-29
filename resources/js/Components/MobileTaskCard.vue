@@ -81,8 +81,9 @@ const updateTask = (newStatus: string) => {
     form.patch(route('tasks.update', props.task.id), {
         onFinish: () => {
             form.reset('status');
-            router.reload({ only: ['tasks'] });
         },
+        preserveState: false,
+        preserveScroll: true,
     });
 };
 
@@ -90,8 +91,9 @@ const deleTeTask = () => {
     form.delete(route('tasks.destroy', props.task.id), {
         onFinish: () => {
             form.reset('status');
-            router.reload({ only: ['tasks'] });
         },
+        preserveState: false,
+
     });
 };
 </script>

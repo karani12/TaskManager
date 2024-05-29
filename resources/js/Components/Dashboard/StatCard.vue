@@ -7,8 +7,7 @@ const props = defineProps<{
     number: number;
     class?: string;
 }>();
-console.log(props);
-const base = ' px-2 md:px-4 md:min-w-28 min-w-24 rounded-md flex flex-col ';
+const base = ' px-1  md:px-4 md:min-w-28 min-w-24 rounded-md flex flex-col ';
 const classes = computed(() => {
     return `${base} ${props.class || ''}`;
 });
@@ -19,7 +18,7 @@ const classes = computed(() => {
 
 <template>
     <div :class="classes">
-        <p class="text-gray-400 font-bold">{{ props.name }}</p>
+        <p class="text-gray-500 md:font-bold">{{ props.name }}</p>
         <h1 class="number text-3xl md:text-4xl font-black">{{ props.number }}</h1>
         <slot name="sub-stats"></slot>
       

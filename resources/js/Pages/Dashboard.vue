@@ -129,7 +129,6 @@ const openModal = () => {
                             <TaskCard :task="task" class="hidden md:flex" />
                             <MobileTaskCard :task="task" class="md:hidden" />
 
-
                         </div>
                     </div>
 
