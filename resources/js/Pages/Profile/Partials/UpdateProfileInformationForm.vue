@@ -46,6 +46,7 @@ const handleFileUpload = (event: Event) => {
             <!-- avatar upload -->
             <div class="relative inline-block">
                 <div class="w-24 h-24 relative bg-white">
+                    <!-- @vue-ignore -->
                     <img :src="user.avatar" alt="avatar" class="w-full h-full object-cover  rounded-full" />
                     <div
                         class="absolute  bottom-0 right-0 z-[999999] transform translate-x-1/4 translate-y-1/4 bg-white rounded-full p-1">
