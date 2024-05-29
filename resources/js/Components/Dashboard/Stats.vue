@@ -26,6 +26,7 @@ import LowestIcon from '@/Components/Icons/LowestIcon.vue';
 
                             <span class="text-black">
                                 <!-- @vue-ignore -->
+                                <!-- @vue-skip -->
                                 {{ $page.props.substats.pendingHighest }}
                             </span>
                         </div>
@@ -34,7 +35,10 @@ import LowestIcon from '@/Components/Icons/LowestIcon.vue';
 
                             <span class="text-black ">
                                 <!-- @vue-ignore -->
-                                {{ $page.props.substats.pendingMedium }}
+                                {{ 
+                                //@ts-ignore
+                                $page.props.substats.pendingMedium 
+                                }}
                             </span>
                         </div>
                         <div class="flex items-center gap-1">
@@ -42,7 +46,10 @@ import LowestIcon from '@/Components/Icons/LowestIcon.vue';
 
                             <span class="text-black	">
                                 <!-- @vue-ignore -->
-                                {{ $page.props.substats.pendingLowest }}
+                                {{
+                                //@ts-ignore
+                                 $page.props.substats.pendingLowest
+                                }}
                             </span>
                         </div>
                     </div>
