@@ -18,7 +18,7 @@ import { ChevronUpIcon } from '@heroicons/vue/20/solid'
               class="h-5 w-5 text-primary-500"
             />
           </DisclosureButton>
-          <DisclosurePanel class="px-4 pb-2 pt-4 text-sm text-gray-500">
+          <DisclosurePanel class="md:px-4 pb-2 pt-4 text-sm text-gray-500">
             <slot name="body"></slot>
           </DisclosurePanel>
         </Disclosure>

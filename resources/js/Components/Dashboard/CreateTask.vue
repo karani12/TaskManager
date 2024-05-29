@@ -97,9 +97,9 @@ const closeModal = () => {
             </div>
 
 
-            <div class="px-7 pb-10 pt-5">
-                <div class="status flex gap-2">
-                    <div class="due w-1/2">
+            <div class="px-2 md:px-7 pb-10 pt-5">
+                <div class="status flex flex-col md:flex-row gap-2">
+                    <div class="due md:w-1/2">
                         <InputLabel for="priority" value="Priority" />
                         <select id="priority" v-model="form.priority"
                             class="border-gray-300 w-full focus:border-primary-600 focus:ring-indigo-500 rounded-md py-3 shadow-sm"
@@ -113,7 +113,7 @@ const closeModal = () => {
                         <InputError :message="form.errors.priority" />
 
                     </div>
-                    <div class="status w-1/2">
+                    <div class="status md:w-1/2">
                         <InputLabel for="status" value="Status" />
                         <select id="status" v-model="form.status"
                             class="border-gray-300 w-full focus:border-primary-600 focus:ring-indigo-500 rounded-md py-3 shadow-sm"

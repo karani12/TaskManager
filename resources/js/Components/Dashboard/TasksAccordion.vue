@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Accordion from '@/Components/Accordion.vue';
 import TaskCard from '@/Components/TaskCard.vue';
+import MobileTaskCard from '@/Components/MobileTaskCard.vue';
 import { computed } from 'vue';
 
 </script>
 <template>
     <!-- pending -->
-    <div
-    >
+    <div>
 
         <Accordion>
             <template #title>
@@ -15,7 +15,8 @@ import { computed } from 'vue';
             </template>
             <template #body>
                 <div v-for="task in $page.props.tasks.pending">
-                    <TaskCard :task="task" />
+                    <TaskCard :task="task" class="hidden md:flex" />
+                    <MobileTaskCard :task="task" />
                 </div>
             </template>
         </Accordion>
@@ -25,10 +26,9 @@ import { computed } from 'vue';
                 <h1 class="text-2xl font-black">Completed</h1>
             </template>
             <template #body>
-                <div
-                v-for="task in $page.props.tasks.completed"
-                >
-                    <TaskCard :task="task" />
+                <div v-for="task in $page.props.tasks.completed">
+                    <TaskCard :task="task" class="hidden md:flex" />
+                    <MobileTaskCard :task="task" />
                 </div>
             </template>
         </Accordion>
@@ -39,10 +39,9 @@ import { computed } from 'vue';
                 <h1 class="text-2xl font-black">Backlog</h1>
             </template>
             <template #body>
-                <div
-                v-for="task in $page.props.tasks.backlog"
-                >
-                    <TaskCard :task="task" />
+                <div v-for="task in $page.props.tasks.backlog">
+                    <TaskCard :task="task" class="hidden md:flex" />
+                    <MobileTaskCard :task="task" />
                 </div>
             </template>
         </Accordion>

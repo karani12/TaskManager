@@ -33,7 +33,7 @@ watch(selectedId, (newValue) => {
 </script>
 
 <template>
-    <div class="w-52">
+    <div class="md:w-52">
         <Listbox v-model="selectedId">
             <div class="relative">
                 <ListboxButton
@@ -50,7 +50,7 @@ watch(selectedId, (newValue) => {
                 <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
                     leave-to-class="opacity-0">
                     <ListboxOptions
-                        class="absolute z-[9999] mt-1 min-h-fit min-w-52  overflow-visible rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                        class="absolute z-[9999] mt-1 w-full md:min-w-52  overflow-visible rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
                         <ListboxOption v-slot="{ active, selected }" v-for="item in props.items" :key="item.id"
                             :value="item.id">
                             <li :class="[

@@ -16,6 +16,6 @@ const base = 'px-4 min-w-28  rounded-md flex flex-col ';
             <component :is="props.icon" ></component>
         </span>
 
-        <p class="text-black">{{ props.text }}</p>
+        <p class="text-black text-sm">{{ props.text }}</p>
     </div>
 </template>

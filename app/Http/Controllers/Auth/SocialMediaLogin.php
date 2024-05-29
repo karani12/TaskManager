@@ -43,7 +43,6 @@ class SocialMediaLogin extends Controller
         $user = Socialite::driver('google')
             ->stateless()
             ->user();
-        Log::info('User', ['user' => $user]);
 
         $existingUser = User::where('email', $user->getEmail())->first();
 
@@ -59,11 +58,12 @@ class SocialMediaLogin extends Controller
 
                 )
             ]);
+
+            Log::info('New User', ['newUser' => $newUser]);
             event(new Registered($newUser));
             Auth::login($newUser);
             return redirect(route('dashboard', absolute: false));
         }
         return redirect(route('dashboard', absolute: false));
-
     }
 }

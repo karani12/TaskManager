@@ -12,16 +12,16 @@ const filterByPriority = (tasks: Task[], priority: string) => {
 
 </script>
 <template>
-    <section class="flex justify-between">
+    <section class="flex flex-col md:flex-row md:justify-between space-y-4 ">
 
-        <div class="avatar flex space-x-3 items-center justify-center">
+        <div class="avatar flex space-x-3 items-center md:justify-center">
             <img :src="$page.props.auth.user.avatar" alt="avatar" class="rounded-full w-16 h-16" />
             <div class="name">
                 <h3 class="text-2xl font-bold">{{ $page.props.auth.user.name }}</h3>
                 <p class="text-base text-gray-500">{{ $page.props.auth.user.email }}</p>
             </div>
         </div>
-        <div class="stats flex space-x-3">
+        <div class="stats flex gap-2 md:space-x-3">
             <StatsCard name="Pending" :number="$page.props.completedTasks" class="bg-warning-50 justify-between">
                 <template #sub-stats>
                     <div class="stats flex gap-2 pt-4">
