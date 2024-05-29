@@ -22,17 +22,18 @@ This is a simple task manager that manages tasks for a user.
 2. Run `composer install`
 3. Run `npm install`
 4. create a `.env` file and copy the contents of `.env.example` to it
-5. Run `php key:generate`
-6. Run `php artisan migrate --seed`
-7. Add the following keys to your `.env` file
+5. Connect to a database by modifying the values depending on the port assigned, user and password(Make sure the user is granted the priviledges to access the database you create)
+6. Run `php key:generate`
+7. Run `php artisan migrate --seed`
+8. Add the following keys to your `.env` file
     - `GOOGLE_CLIENT_ID`
     - `GOOGLE_CLIENT_SECRET`
     - `GOOGLE_REDIRECT-URI`
     to get these keys, visit the google developer console and create a new project.(This will enable google login)
 
 
-8. Run `npm run dev`
-9. Run `php artisan serve`
+9. Run `npm run dev`
+10. Run `php artisan serve`
 
 ## usage
 - Visit `http://localhost:8000` to view the application
