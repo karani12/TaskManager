@@ -9,13 +9,14 @@ const props = defineProps<{
 }>();
 
 
-// dismiss toast
 const dismissToast = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
     const dismissTarget = target.getAttribute('data-dismiss-target');
     const toast = document.getElementById(dismissTarget!);
     toast?.remove();
 };
+
+const success = 
 
 
 </script>

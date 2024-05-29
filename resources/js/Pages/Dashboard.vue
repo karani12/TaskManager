@@ -54,6 +54,7 @@ watch([selectedPriority, selectedStatus], () => {
 
 
 });
+
 const searchValue = ref('');
 
 watch(searchValue, () => {
@@ -62,6 +63,10 @@ watch(searchValue, () => {
     }, { preserveState: true })
 });
 
+
+const handleSearch = (value:any) => {
+    searchValue.value = value;
+}
 const showModal = ref(false);
 
 const openModal = () => {
@@ -102,7 +107,9 @@ const openModal = () => {
                     <!-- search plus filter -->
                     <div class="filter-search flex mx-3 md:mx-0 flex-col md:flex-row mt-3 space-y-3 md:space-y-0 gap-3 justify-center content-center">
                         <div class="search w-full md:w-1/2">
-                            <SearchInput v-model="searchValue" />
+                            <SearchInput
+                            @update:modelValue="handleSearch" 
+                             />
                         </div>
 
                         <div class="filter w-full md:w-1/2 flex flex-col md:flex-row  gap-3">
