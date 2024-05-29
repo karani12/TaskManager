@@ -32,7 +32,6 @@ const props = defineProps<{
 }>();
 
 
-// forms
 
 const form = useForm({
     id: props.task.id,
@@ -50,10 +49,9 @@ const updateTask = (newStatus: string) => {
     form.patch(route('tasks.update', props.task.id), {
         onFinish: () => {
             form.reset('status');
-            router.reload({
-                only: ['tasks'],
-            });
+           
         },
+        only: ['tasks'],
     });
 
 };
@@ -70,6 +68,10 @@ const deleTeTask = () => {
     });
 };
 
+const handleUpdateModal = (value:any) => {
+    showModal.value = value;
+};
+
 const showModal = ref(false);
 
 
@@ -77,7 +79,10 @@ const showModal = ref(false);
 
 <template>
     <section class="border relative  rounded-md text-base p-2 md:p-4 my-3 flex justify-between">
-        <EditTask :showModal="showModal" :task="task" />
+        <EditTask 
+        @update:showModal="showModal = $event"
+        :showModal="showModal" 
+        :task="task" />
 
         <div class="">
             <h1 class=" text-lg md:text-xl font-bold text-black">{{ props.task.title }}</h1>
@@ -129,7 +134,8 @@ const showModal = ref(false);
 
                             Move to backlog
                         </button>
-                        <button class="flex items-center gap-2 text-black" @click="showModal = true">
+                        <button class="flex items-center gap-2 text-black"
+                         @click="showModal = true">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

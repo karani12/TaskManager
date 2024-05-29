@@ -11,16 +11,17 @@ const handleGoogleLogin = () => {
 
 <template>
     <GuestLayout>
+        <section>
+            
+        </section>
 
         <Head title="Login Method" />
-        <div class="content space-y-2">
+        <div class="content space-y-2 ">
             <h1 class="text-black text-xl font-bold">Create Account</h1>
             <p class="text-gray-400">Create an account to start managing your tasks.</p>
         </div>
         <div class="choose-method space-y-4 py-3">
-            <PrimaryButton text="Login with Google" 
-            @click="handleGoogleLogin"
-            extraClasses="bg-gray-50 ">
+            <PrimaryButton text="Login with Google" @click="handleGoogleLogin" extraClasses="bg-gray-50">
                 <template #icon>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_2_645)">
@@ -45,9 +46,12 @@ const handleGoogleLogin = () => {
                     </svg>
                 </template>
             </PrimaryButton>
-            <Link href="/register">
+            <div class="reg">
+
+                <Link href="/register">
                 <PrimaryButton text="Continue With Email" extraClasses="bg-primary-600 text-white" />
-            </Link>
+                </Link>
+            </div>
             <LoginLink href="/login" question="Already have an account?" linkText="Log in" />
         </div>
 

@@ -67,9 +67,9 @@ class ProfileController extends Controller
             'avatar' => ['required', 'image'],
         ]);
 
-        $path = Storage::disk('public')->putFile('avatars', $request->file('avatar'));
-
-        $request->user()->updateProfilePicture($path);
+        $path = Storage::disk('public')->put('avatars', $request->file('avatar'));
+        $url = Storage::url($path);
+        $request->user()->updateProfilePicture($url);
 
 
         return Redirect::route('profile.edit');

@@ -37,15 +37,12 @@ const form = useForm({
 const submit = () => {
     form.post(route('tasks.store'), {
         onFinish: () => {
-            console.log('submitted');
-
             form.reset('title', 'description', 'due_date', 'priority', 'status');
-            router.reload({
-                only: ['tasks'],
-                preserveState: true,
-            });
+            // We will show a toast message here
+          
 
         },
+        only: ['tasks'],
     });
 };
 
@@ -142,6 +139,7 @@ const closeModal = () => {
 
                 <div class="mt-4">
                     <InputLabel for="description" value="Description" />
+                    <!-- @vue-ignore -->
                     <MdEditor v-model="form.description" :preview=false :footers=[] :toolbars="toolbar"
                         :autoDetectCode=false class="max-h-[200px] border" />
                     <InputError :message="form.errors.priority" />
