@@ -1,5 +1,5 @@
 <section class="flex items-center justify-between px-5 lg:px-20 pt-3 lg:pt-5">
-    <x-app-logo />
+        <x-app-logo  />
     <div class="buttons">
         @if (Route::has('login'))
             <nav class=" flex flex-1 gap-3 justify-end">

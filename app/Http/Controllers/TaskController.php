@@ -18,7 +18,6 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = $this->filterTasks();
-        Log::info('TaskController@index', ['tasks' => $tasks]);
         return Inertia::render('Dashboard', [
             "tasks" => $tasks,
             "completedTasks" => Auth::user()->tasks->where('status', 'completed')->count(),
@@ -38,7 +37,6 @@ class TaskController extends Controller
         $status = request('status');
 
         if ($search = request('search')) {
-            log::info('search', ['search' => $search]);
             return $this->searchQuery($search);
         }
 
@@ -122,12 +120,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        Auth::user()->tasks->delete($task);
+        $task->delete();
     }
 
-    public function search(Request $request, $search)
-    {
-        $tasks = Auth::user()->tasks->where('title', 'like', "%$search%")->get();
-        return $tasks;
-    }
 }

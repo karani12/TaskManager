@@ -12,27 +12,26 @@ import HighestIcon from '@/Components/Icons/HighestIcon.vue';
 import MediumIcon from '@/Components/Icons/MediumIcon.vue';
 import LowIcon from '@/Components/Icons/LowIcon.vue';
 import LowestIcon from '@/Components/Icons/LowestIcon.vue';
+import MobileTaskCard from '@/Components/MobileTaskCard.vue';
 
 
 import CreateTask from '@/Components/Dashboard/CreateTask.vue';
 import TaskCard from '@/Components/TaskCard.vue';
 
 
-import { ref, watch, computed, h } from 'vue';
+import { ref, watch, computed, h, onMounted } from 'vue';
 const {
-    visit,
     props,
-
 } = usePage();
 
 
 const priority = [
     { id: 'all', name: 'All', icon: Icon, color: 'text-gray-400', },
-    { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
     { id: 'highest', name: 'Highest', icon: HighestIcon, color: 'text-danger-600', },
+    { id: 'high', name: 'High', icon: HighIcon, color: 'text-danger-600', },
     { id: 'medium', name: 'Medium', icon: MediumIcon, color: 'text-primary-600', },
-    { id: 'lowest', name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
     { id: 'medium', name: 'Low', icon: LowIcon, color: 'text-primary-600', },
+    { id: 'lowest', name: 'Lowest', icon: LowestIcon, color: 'text-primary-600', },
 ]
 
 const status = [
@@ -63,8 +62,11 @@ watch(searchValue, () => {
     }, { preserveState: true })
 });
 
-
 const showModal = ref(false);
+
+const openModal = () => {
+    showModal.value = true;
+}
 
 
 </script>
@@ -75,16 +77,16 @@ const showModal = ref(false);
 
     <AuthenticatedLayout>
 
-        <div class="py-12">
+        <div class="py-12 ">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden  sm:rounded-lg max-w-4xl mx-auto">
-                    <Stats />
+                <div class="bg-white overflow-hidden px-3  sm:rounded-lg max-w-4xl mx-auto">
+                    <Stats class="py-3 px-3 md:px-0 md:py-0" />
                     <!-- title -->
                     <div class="title flex justify-between items-center mt-4">
                         <h1 class="text-3xl font-semibold text-gray-900">Todos</h1>
-                        <div class="create-tasks">
+                        <div class="create-tasks px-3 md:px-0">
                             <button class="bg-primary-600 text-white px-4 py-2 rounded-md flex gap-2"
-                                @click="showModal = true">
+                                @click="openModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -97,29 +99,38 @@ const showModal = ref(false);
                         </div>
                     </div>
                     <!-- title -->
-
                     <!-- search plus filter -->
-                    <div class="filter-search flex mt-3 gap-3 justify-center content-center">
-                        <div class="search w-1/2">
+                    <div class="filter-search flex mx-3 md:mx-0 flex-col md:flex-row mt-3 space-y-3 md:space-y-0 gap-3 justify-center content-center">
+                        <div class="search w-full md:w-1/2">
                             <SearchInput v-model="searchValue" />
                         </div>
 
-                        <div class="filter w-1/2 flex gap-3">
-                            <div class="box relative w-1/2 ">
+                        <div class="filter w-full md:w-1/2 flex flex-col md:flex-row  gap-3">
+                            <div class="relative w-full md:w-1/2 ">
                                 <Listbox v-model="selectedPriority" :items="priority" name="status" />
                             </div>
-                            <div class="relative max-w-11 ">
+                            <div class="relative w-full md:max-w-11 ">
                                 <Listbox v-model="selectedStatus" :items="status" name="Priority" />
                             </div>
                         </div>
                     </div>
                     <!-- modal -->
-                    <CreateTask :showModal="showModal" />
-                    <!-- ttitle stuff -->
-                    <TaskAccordion v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
-                    <div v-else v-for="task in $page.props.tasks" class="seen ">
-                        <TaskCard :task="task" />
 
+                    <CreateTask
+                    @update:showModal="showModal = $event"
+                    :showModal="showModal"
+                     />
+                    <!-- ttitle stuff -->
+                    <div class="min-h-[300px]">
+
+                        <TaskAccordion class="min-h-[300px] w-full"
+                            v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
+                        <div v-else v-for="task in $page.props.tasks" class="seen ">
+                            <TaskCard :task="task" class="hidden md:flex" />
+                            <MobileTaskCard :task="task" class="md:hidden" />
+
+
+                        </div>
                     </div>
 
                 </div>

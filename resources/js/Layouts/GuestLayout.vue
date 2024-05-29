@@ -10,9 +10,9 @@ import { Link } from '@inertiajs/vue3';
         <ApplicationLogo class="" />
         </Link>
     </div>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white px-3">
+    <div class="min-h-screen flex flex-col  justify-center items-center pt-6 sm:pt-0 bg-white px-3">
 
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white border border-gray-200 overflow-hidden sm:rounded-lg">
+        <div class="w-full sm:max-w-md mt-6 px-3 md:px-6 py-4 bg-white md:border md:border-gray-200 overflow-hidden sm:rounded-lg">
             <slot />
         </div>
     </div>
