@@ -7,7 +7,6 @@ const props = defineProps<{
     number: number;
     class?: string;
 }>();
-console.log(props);
 const base = ' px-1  md:px-4 md:min-w-28 min-w-24 rounded-md flex flex-col ';
 const classes = computed(() => {
     return `${base} ${props.class || ''}`;

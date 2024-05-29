@@ -38,6 +38,7 @@ const submit = () => {
     form.post(route('tasks.store'), {
         onFinish: () => {
             form.reset('title', 'description', 'due_date', 'priority', 'status');
+            showModal.value = false;
 
         },
         only: ['tasks'],
