@@ -12,6 +12,7 @@ import HighestIcon from '@/Components/Icons/HighestIcon.vue';
 import MediumIcon from '@/Components/Icons/MediumIcon.vue';
 import LowIcon from '@/Components/Icons/LowIcon.vue';
 import LowestIcon from '@/Components/Icons/LowestIcon.vue';
+import Modal from '@/Components/Modal.vue';
 
 
 import CreateTask from '@/Components/Dashboard/CreateTask.vue';
@@ -20,7 +21,6 @@ import TaskCard from '@/Components/TaskCard.vue';
 
 import { ref, watch, computed, h, onMounted } from 'vue';
 const {
-    visit,
     props,
 } = usePage();
 
@@ -62,17 +62,11 @@ watch(searchValue, () => {
     }, { preserveState: true })
 });
 
-onMounted(() => {
-  const page = usePage();
-  const urlParams = new URLSearchParams(window.location.search);
-
-  if (urlParams.has('force-reload')) {
-    window.location.href = window.location.origin;
-  }
-});
-
-
 const showModal = ref(false);
+
+const openModal = () => {
+    showModal.value = true;
+}
 
 
 </script>
@@ -92,7 +86,7 @@ const showModal = ref(false);
                         <h1 class="text-3xl font-semibold text-gray-900">Todos</h1>
                         <div class="create-tasks">
                             <button class="bg-primary-600 text-white px-4 py-2 rounded-md flex gap-2"
-                                @click="showModal = true">
+                                @click="openModal">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -122,14 +116,19 @@ const showModal = ref(false);
                         </div>
                     </div>
                     <!-- modal -->
-                    <CreateTask :showModal="showModal" />
+
+                    <CreateTask
+                    @update:showModal="showModal = $event"
+                    :showModal="showModal"
+                     />
                     <!-- ttitle stuff -->
                     <div class="min-h-[300px]">
 
-                        <TaskAccordion class="min-h-[300px]" v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
-                        <div  v-else v-for="task in $page.props.tasks" class="seen ">
+                        <TaskAccordion class="min-h-[300px]"
+                            v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
+                        <div v-else v-for="task in $page.props.tasks" class="seen ">
                             <TaskCard :task="task" />
-    
+
                         </div>
                     </div>
 
