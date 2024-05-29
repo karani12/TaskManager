@@ -18,7 +18,7 @@ import { usePage } from '@inertiajs/vue3';
                 <!-- @vue-ignore -->
                 <div v-for="task in $page.props.tasks.pending">
                     <TaskCard :task="task" class="hidden md:flex" />
-                    <MobileTaskCard :task="task" />
+                    <MobileTaskCard class="sm:hidden" :task="task" />
                 </div>
             </template>
         </Accordion>
@@ -31,7 +31,8 @@ import { usePage } from '@inertiajs/vue3';
                 <!-- @vue-ignore -->
                 <div v-for="task in $page.props.tasks.completed">
                     <TaskCard :task="task" class="hidden md:flex" />
-                    <MobileTaskCard :task="task" />
+                    <MobileTaskCard class="sm:hidden" :task="task" />
+
                 </div>
             </template>
         </Accordion>
@@ -45,7 +46,8 @@ import { usePage } from '@inertiajs/vue3';
                 <!-- @vue-ignore -->
                 <div v-for="task in $page.props.tasks.backlog">
                     <TaskCard :task="task" class="hidden md:flex" />
-                    <MobileTaskCard :task="task" />
+                    <MobileTaskCard class="sm:hidden" :task="task" />
+
                 </div>
             </template>
         </Accordion>
