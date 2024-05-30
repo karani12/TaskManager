@@ -11,6 +11,8 @@ import MediumIcon from '@/Components/Icons/MediumIcon.vue';
 import LowIcon from '@/Components/Icons/LowIcon.vue';
 import LowestIcon from '@/Components/Icons/LowestIcon.vue';
 import { CheckCircleIcon, PencilIcon } from '@heroicons/vue/20/solid';
+import VueMarkdown from 'vue-markdown-render'
+
 
 type Task = {
     id: number;
@@ -142,7 +144,7 @@ const deleTeTask = () => {
                 <h1 class="text-lg md:text-xl font-bold text-black">{{ props.task.title }}</h1>
                 <p class="font-bold text-sm">{{ props.task.due_date ? new Date(props.task.due_date).toDateString() : ''
                     }}</p>
-                <p class="mt-3 text-sm md:text-base">{{ props.task.description }}</p>
+                <VueMarkdown :source="props.task.description" />
                 <div class="others mt-3 flex gap-2">
                     <Badge v-if="props.task.status === 'pending'" :text="props.task.status" :icon="Icon"
                         class="text-warning-400" />

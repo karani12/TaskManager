@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Popover from './Popover.vue';
 import Badge from './Badge.vue';
-import { defineProps } from 'vue';
+import { defineComponent, defineProps } from 'vue';
 import Icon from '@/Components/Icons/Icon.vue';
 import HighIcon from '@/Components/Icons/HighIcon.vue';
 import HighestIcon from '@/Components/Icons/HighestIcon.vue';
@@ -12,6 +12,8 @@ import { CheckCircleIcon, PencilIcon } from '@heroicons/vue/20/solid';
 import { Link, useForm, router } from '@inertiajs/vue3'
 import EditTask from '@/Components/Dashboard/EditTask.vue';
 import { ref } from 'vue';
+import VueMarkdown from 'vue-markdown-render'
+
 
 type Task = {
     id: number;
@@ -85,7 +87,9 @@ const showModal = ref(false);
             <h1 class=" text-lg md:text-xl font-bold text-black">{{ props.task.title }}</h1>
             <p class="font-bold text-sm">{{ props.task.due_date ? new Date(props.task.due_date).toDateString() : '' }}
             </p>
-            <p class="mt-3 text-sm md:text-base"> {{ props.task.description }}</p>
+            <p class="mt-3 text-sm md:text-base"> 
+                <VueMarkdown :source="props.task.description" />
+            </p>
             <div class="others mt-3 flex gap-2">
                 <Badge v-if="props.task.status === 'pending'" :text="props.task.status" :icon="Icon"
                     class="text-warning-400" />
