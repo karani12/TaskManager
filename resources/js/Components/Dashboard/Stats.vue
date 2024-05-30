@@ -58,6 +58,7 @@ import LowestIcon from '@/Components/Icons/LowestIcon.vue';
             </StatsCard>
             <!-- @vue-ignore -->
             <StatsCard name="Completed" :number="$page.props.completedTasks" class="bg-success-50" />
+
             <!-- @vue-ignore -->
             <StatsCard name="Backlog" :number="$page.props.backlogTasks" class="bg-gray-50" />
         </div>

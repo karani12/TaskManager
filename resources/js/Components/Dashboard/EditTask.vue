@@ -49,7 +49,7 @@ const submit = () => {
         onSuccess: () => {
             showModal.value = false;
         },
-        only: ['tasks'],
+        only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
         preserveState: true,
         preserveScroll: true,
     });

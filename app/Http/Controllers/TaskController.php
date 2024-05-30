@@ -18,6 +18,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = $this->filterTasks();
+   
         return Inertia::render('Dashboard', [
             "tasks" => $tasks,
             "completedTasks" => Auth::user()->tasks->where('status', 'completed')->count(),
