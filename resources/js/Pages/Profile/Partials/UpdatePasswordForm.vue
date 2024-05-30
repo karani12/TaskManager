@@ -89,7 +89,7 @@ const updatePassword = () => {
 
             <div class="flex items-center justify-end gap-4">
                 <PrimaryButton 
-                class="w-36"
+                class="max-w-36"
                 :disabled="form.processing">Save</PrimaryButton>
 
                 <Transition

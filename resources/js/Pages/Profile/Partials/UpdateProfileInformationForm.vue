@@ -108,7 +108,7 @@ const handleFileUpload = (event: Event) => {
             </div>
 
             <div class="flex items-center justify-end gap-4">
-                <PrimaryButton class="w-36" :disabled="form.processing">
+                <PrimaryButton class="max-w-36" :disabled="form.processing">
                     Save
                 </PrimaryButton>
 
