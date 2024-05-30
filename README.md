@@ -44,3 +44,8 @@ This is a simple task manager that manages tasks for a user.
 
 
 > Acess generated data by logging in with the email `test@example.com` and password `password`
+
+## improvements
+
+- Use `Laravel scout` for full text search
+=======
