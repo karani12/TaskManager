@@ -48,9 +48,11 @@ const updateTask = (newStatus: string) => {
     form.patch(route('tasks.update', props.task.id), {
         onFinish: () => {
             form.reset('status');
+            router.reload({
+                only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
+            });
 
         },
-        only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
     });
 
 };

@@ -39,8 +39,10 @@ const submit = () => {
         onFinish: () => {
             form.reset();
             showModal.value = false;
+            router.reload({
+                only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
+            });
         },
-        only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
         preserveState: false,
         preserveScroll: true,
     });
