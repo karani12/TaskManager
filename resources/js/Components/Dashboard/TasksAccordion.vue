@@ -2,6 +2,7 @@
 import Accordion from '@/Components/Accordion.vue';
 import TaskCard from '@/Components/TaskCard.vue';
 import MobileTaskCard from '@/Components/MobileTaskCard.vue';
+import EmptyState from '../EmptyState.vue';
 import { usePage } from '@inertiajs/vue3';
 
 
@@ -16,8 +17,12 @@ import { usePage } from '@inertiajs/vue3';
             </template>
             <template #body>
                 <!-- @vue-ignore -->
-                <div v-for="task in $page.props.tasks.pending">
+                <EmptyState v-if="!$page.props.tasks.pending" />
+
+                <!-- @vue-ignore -->
+                <div v-else v-for="task in $page.props.tasks.pending">
                     <TaskCard :task="task" class="hidden md:flex" />
+                    <!-- @vue-ignore -->
                     <MobileTaskCard class="sm:hidden" :task="task" />
                 </div>
             </template>
@@ -29,7 +34,9 @@ import { usePage } from '@inertiajs/vue3';
             </template>
             <template #body>
                 <!-- @vue-ignore -->
-                <div v-for="task in $page.props.tasks.completed">
+                <EmptyState v-if="!$page.props.tasks.pending" />
+                <!-- @vue-ignore -->
+                <div v-else v-for="task in $page.props.tasks.completed">
                     <TaskCard :task="task" class="hidden md:flex" />
                     <MobileTaskCard class="sm:hidden" :task="task" />
 
@@ -44,7 +51,13 @@ import { usePage } from '@inertiajs/vue3';
             </template>
             <template #body>
                 <!-- @vue-ignore -->
-                <div v-for="task in $page.props.tasks.backlog">
+                <EmptyState v-if="($page.props.tasks.pending as Array<any>).length === 0" />
+
+                <!-- @vue-ignore -->
+
+                <!-- @vue-ignore -->
+                <div v-else v-for="task in $page.props.tasks.backlog">
+
                     <TaskCard :task="task" class="hidden md:flex" />
                     <MobileTaskCard class="sm:hidden" :task="task" />
 

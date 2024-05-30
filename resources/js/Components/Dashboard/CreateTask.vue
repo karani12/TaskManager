@@ -150,7 +150,7 @@ const closeModal = () => {
                     class="w-32 bg-gray-100 text-gray-900 py-3 rounded-md  text-center ">
                     Cancel
                     </button>
-                    <PrimaryButton type="submit" class="w-36">Create Task</PrimaryButton>
+                    <PrimaryButton type="submit" class="max-w-36">Create Task</PrimaryButton>
                 </div>
 
 

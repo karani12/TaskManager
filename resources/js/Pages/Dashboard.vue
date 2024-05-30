@@ -13,10 +13,9 @@ import MediumIcon from '@/Components/Icons/MediumIcon.vue';
 import LowIcon from '@/Components/Icons/LowIcon.vue';
 import LowestIcon from '@/Components/Icons/LowestIcon.vue';
 import MobileTaskCard from '@/Components/MobileTaskCard.vue';
-
-
 import CreateTask from '@/Components/Dashboard/CreateTask.vue';
 import TaskCard from '@/Components/TaskCard.vue';
+import EmptyState from '@/Components/EmptyState.vue';
 
 
 import { ref, watch, computed, h, onMounted } from 'vue';
@@ -64,7 +63,7 @@ watch(searchValue, () => {
 });
 
 
-const handleSearch = (value:any) => {
+const handleSearch = (value: any) => {
     searchValue.value = value;
 }
 const showModal = ref(false);
@@ -105,11 +104,10 @@ const openModal = () => {
                     </div>
                     <!-- title -->
                     <!-- search plus filter -->
-                    <div class="filter-search flex mx-3 md:mx-0 flex-col md:flex-row mt-3 space-y-3 md:space-y-0 gap-3 justify-center content-center">
+                    <div
+                        class="filter-search flex mx-3 md:mx-0 flex-col md:flex-row mt-3 space-y-3 md:space-y-0 gap-3 justify-center content-center">
                         <div class="search w-full md:w-1/2">
-                            <SearchInput
-                            @update:modelValue="handleSearch" 
-                             />
+                            <SearchInput @update:modelValue="handleSearch" />
                         </div>
 
                         <div class="filter w-full md:w-1/2 flex flex-col md:flex-row  gap-3">
@@ -123,16 +121,18 @@ const openModal = () => {
                     </div>
                     <!-- modal -->
 
-                    <CreateTask
-                    @update:showModal="showModal = $event"
-                    :showModal="showModal"
-                     />
+                    <CreateTask @update:showModal="showModal = $event" :showModal="showModal" />
                     <!-- ttitle stuff -->
                     <div class="min-h-[300px]">
 
                         <TaskAccordion class="min-h-[300px] w-full"
                             v-if="selectedStatus === 'all' && selectedPriority === 'all' && searchValue === ''" />
+
+                            <!-- @vue-skip -->
+                            <!-- @vue-ignore -->
+                        <EmptyState v-else-if="($page.props.tasks as Array<any>).length === 0" />
                         <div v-else v-for="task in $page.props.tasks" class="seen ">
+
                             <TaskCard :task="task" class="hidden md:flex" />
                             <MobileTaskCard :task="task" class="md:hidden" />
 
