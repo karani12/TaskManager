@@ -36,7 +36,8 @@ const handleFileUpload = (event: Event) => {
             },
             onError: () => {
                 fileInput.value = '';
-            }
+            },
+            only: ['auth']
             
         }
     );

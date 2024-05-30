@@ -31,9 +31,9 @@ This is a simple task manager that manages tasks for a user.
     - `GOOGLE_REDIRECT-URI`
     to get these keys, visit the google developer console and create a new project.(This will enable google login)
 
-
-9. Run `npm run dev`
-10. Run `php artisan serve`
+9. Run `php artisan storage:link`
+10. Run `npm run dev`
+11. Run `php artisan serve`
 
 ## usage
 - Visit `http://localhost:8000` to view the application
