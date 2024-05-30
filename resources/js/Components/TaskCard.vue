@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Popover from './Popover.vue';
 import Badge from './Badge.vue';
-import { ChevronUpIcon } from '@heroicons/vue/20/solid';
 import { defineProps } from 'vue';
 import Icon from '@/Components/Icons/Icon.vue';
 import HighIcon from '@/Components/Icons/HighIcon.vue';
