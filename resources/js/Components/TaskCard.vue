@@ -88,7 +88,9 @@ const showModal = ref(false);
             <p class="font-bold text-sm">{{ props.task.due_date ? new Date(props.task.due_date).toDateString() : '' }}
             </p>
             <p class="mt-3 text-sm md:text-base"> 
-                <VueMarkdown :source="props.task.description" />
+                <VueMarkdown
+                v-if="props.task.description"
+                 :source="props.task.description" />
             </p>
             <div class="others mt-3 flex gap-2">
                 <Badge v-if="props.task.status === 'pending'" :text="props.task.status" :icon="Icon"
