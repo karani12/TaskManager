@@ -18,7 +18,7 @@ import LowestIcon from '@/Components/Icons/LowestIcon.vue';
         </div>
         <div class="stats flex gap-1 md:space-x-3">
             <!-- @vue-ignore -->
-            <StatsCard name="Pending" :number="$page.props.completedTasks" class="bg-warning-50 justify-between">
+            <StatsCard name="Pending" :number="$page.props.pendingTasks" class="bg-warning-50 justify-between">
                 <template #sub-stats>
                     <div class="stats flex gap-1 pt-4">
                         <div class="flex items-center gap-1">
