@@ -131,7 +131,7 @@ const openModal = () => {
                             <!-- @vue-skip -->
                             <!-- @vue-ignore -->
                         <EmptyState v-else-if="($page.props.tasks as Array<any>).length === 0" />
-                        <div v-else v-for="task in $page.props.tasks" class="seen ">
+                        <div v-else v-cloak v-for="task in $page.props.tasks" class="seen ">
 
                             <TaskCard :task="task" class="hidden md:flex" />
                             <MobileTaskCard :task="task" class="md:hidden" />

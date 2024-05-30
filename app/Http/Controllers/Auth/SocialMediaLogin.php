@@ -8,7 +8,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 use Laravel\Socialite\Facades\Socialite;
+
 
 class SocialMediaLogin extends Controller
 {
@@ -34,36 +36,31 @@ class SocialMediaLogin extends Controller
 
     public function handleGoogleCallback()
     {
-        try {
-            $user = Socialite::driver('google')->user();
+       try {
+            $user = Socialite::driver('google')
+                ->stateless()
+                ->user();
+            $existingUser = User::where('email', $user->email)->first();
+            if ($existingUser) {
+                Auth::login($existingUser, true);
+            } else {
+                $newUser = new User();
+                $newUser->name = $user->name;
+                $newUser->email = $user->email;
+                $newUser->password = bcrypt($this->generateRandomString());
+                $newUser->avatar = $user->avatar;
+                $newUser->save();
+                Auth::login($newUser, true);
+                event(new Registered($newUser));
+
+            }
+
+            return redirect()->intended(route('dashboard', absolute: false));
         } catch (\Exception $e) {
-            return redirect(route('login-method'));
+            Log::error('Error', ['error' => $e->getMessage()]);
+            return redirect(route('login', absolute: false));
         }
 
-        $user = Socialite::driver('google')
-            ->stateless()
-            ->user();
 
-        $existingUser = User::where('email', $user->getEmail())->first();
-
-        if ($existingUser) {
-            Auth::login($existingUser);
-        } else {
-            $newUser = User::create([
-                'name' => $user->getName(),
-                'email' => $user->getEmail(),
-                'avatar' => $user->getAvatar(),
-                'password' => bcrypt(
-                    $this->generateRandomString(10)
-
-                )
-            ]);
-
-            Log::info('New User', ['newUser' => $newUser]);
-            event(new Registered($newUser));
-            Auth::login($newUser);
-            return redirect(route('dashboard', absolute: false));
-        }
-        return redirect(route('dashboard', absolute: false));
     }
 }

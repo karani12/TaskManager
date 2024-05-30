@@ -77,12 +77,10 @@ class TaskController extends Controller
     }
 
     // return search results
-    private function searchQuery($search)
+    private function searchQuery($query)
     {
-        return Auth::user()->tasks->where('title', 'like', "$search%");
+        return Auth::user()->tasks->where('title', 'LIKE', "%$query%");
     }
-
-
 
 
     /**
