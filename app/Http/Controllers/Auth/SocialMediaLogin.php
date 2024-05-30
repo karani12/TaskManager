@@ -44,14 +44,13 @@ class SocialMediaLogin extends Controller
             if ($existingUser) {
                 Auth::login($existingUser, true);
             } else {
-                $newUser = new User();
-                $newUser->name = $user->name;
-                $newUser->email = $user->email;
-                $newUser->password = bcrypt($this->generateRandomString());
-                $newUser->avatar = $user->avatar;
-                $newUser->save();
+                $newUser = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'password' => bcrypt($this->generateRandomString(10)),
+                    'avatar' => $user->avatar
+                ]);
                 Auth::login($newUser, true);
-                event(new Registered($newUser));
 
             }
 
