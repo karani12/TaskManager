@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
@@ -79,7 +80,12 @@ class TaskController extends Controller
     // return search results
     private function searchQuery($query)
     {
-        return Auth::user()->tasks->where('title', 'LIKE', "%$query%");
+       
+        return DB::table('tasks')
+            ->where('user_id', auth()->id())
+            ->where('title', 'LIKE', "%$query%")
+            ->get();
+
     }
 
 
