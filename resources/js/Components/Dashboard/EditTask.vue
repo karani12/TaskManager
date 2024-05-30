@@ -50,7 +50,7 @@ const submit = () => {
             showModal.value = false;
         },
         only: ['tasks'],
-        preserveState: true,
+        preserveState: false,
         preserveScroll: true,
     });
 };

@@ -42,7 +42,7 @@ const submit = () => {
 
         },
         only: ['tasks'],
-        preserveState: true,
+        preserveState: false,
         preserveScroll: true,
     });
 };
