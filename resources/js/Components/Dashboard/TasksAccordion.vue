@@ -51,9 +51,9 @@ import { usePage } from '@inertiajs/vue3';
             </template>
             <template #body>
                 <!-- @vue-ignore -->
-                <EmptyState v-if="($page.props.tasks.pending as Array<any>).length === 0" />
 
                 <!-- @vue-ignore -->
+                <EmptyState v-if="!$page.props.tasks.backlog" />
 
                 <!-- @vue-ignore -->
                 <div v-else v-for="task in $page.props.tasks.backlog">
