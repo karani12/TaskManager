@@ -80,9 +80,10 @@ const updateTask = (newStatus: string) => {
     form.status = newStatus;
     form.patch(route('tasks.update', props.task.id), {
         onFinish: () => {
-            form.reset('status');
+            form.reset();
+            moveX.value = 0;
         },
-        preserveState: false,
+        preserveState: true,
         preserveScroll: true,
     });
 };
@@ -90,9 +91,12 @@ const updateTask = (newStatus: string) => {
 const deleTeTask = () => {
     form.delete(route('tasks.destroy', props.task.id), {
         onFinish: () => {
-            form.reset('status');
+            form.reset();
+            moveX.value = 0;
+
         },
-        preserveState: false,
+        preserveState: true,
+        preserveScroll: true,
 
     });
 };

@@ -37,12 +37,12 @@ const form = useForm({
 const submit = () => {
     form.post(route('tasks.store'), {
         onFinish: () => {
-            form.reset('title', 'description', 'due_date', 'priority', 'status');
+            form.reset();
             showModal.value = false;
 
         },
         only: ['tasks'],
-        preserveState: false,
+        preserveState: true,
         preserveScroll: true,
     });
 };
