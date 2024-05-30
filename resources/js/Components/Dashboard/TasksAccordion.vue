@@ -34,7 +34,7 @@ import { usePage } from '@inertiajs/vue3';
             </template>
             <template #body>
                 <!-- @vue-ignore -->
-                <EmptyState v-if="!$page.props.tasks.pending" />
+                <EmptyState v-if="!$page.props.tasks.completed" />
                 <!-- @vue-ignore -->
                 <div v-else v-for="task in $page.props.tasks.completed">
                     <TaskCard :task="task" class="hidden md:flex" />

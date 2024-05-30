@@ -48,9 +48,9 @@ const updateTask = (newStatus: string) => {
     form.patch(route('tasks.update', props.task.id), {
         onFinish: () => {
             form.reset('status');
-           
+
         },
-        only: ['tasks'],
+        only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
     });
 
 };
@@ -61,13 +61,13 @@ const deleTeTask = () => {
         onFinish: () => {
             form.reset('status');
             router.reload({
-                only: ['tasks'],
+                only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
             });
         },
     });
 };
 
-const handleUpdateModal = (value:any) => {
+const handleUpdateModal = (value: any) => {
     showModal.value = value;
 };
 
@@ -78,14 +78,12 @@ const showModal = ref(false);
 
 <template>
     <section class="border relative  rounded-md text-base p-2 md:p-4 my-3 flex justify-between">
-        <EditTask 
-        @update:showModal="showModal = $event"
-        :showModal="showModal" 
-        :task="task" />
+        <EditTask @update:showModal="showModal = $event" :showModal="showModal" :task="task" />
 
         <div class="">
             <h1 class=" text-lg md:text-xl font-bold text-black">{{ props.task.title }}</h1>
-            <p class="font-bold text-sm">{{ props.task.due_date ? new Date(props.task.due_date).toDateString() : '' }}</p>
+            <p class="font-bold text-sm">{{ props.task.due_date ? new Date(props.task.due_date).toDateString() : '' }}
+            </p>
             <p class="mt-3 text-sm md:text-base"> {{ props.task.description }}</p>
             <div class="others mt-3 flex gap-2">
                 <Badge v-if="props.task.status === 'pending'" :text="props.task.status" :icon="Icon"
@@ -133,8 +131,7 @@ const showModal = ref(false);
 
                             Move to backlog
                         </button>
-                        <button class="flex items-center gap-2 text-black"
-                         @click="showModal = true">
+                        <button class="flex items-center gap-2 text-black" @click="showModal = true">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

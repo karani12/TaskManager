@@ -39,10 +39,9 @@ const submit = () => {
         onFinish: () => {
             form.reset();
             showModal.value = false;
-
         },
         only: ['tasks', 'substats', 'backlogTasks', 'completedTasks', 'pendingTasks'],
-        preserveState: true,
+        preserveState: false,
         preserveScroll: true,
     });
 };
