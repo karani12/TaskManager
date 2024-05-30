@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 defineProps<{
     mustVerifyEmail?: Boolean;
@@ -11,6 +12,8 @@ defineProps<{
 }>();
 
 const user = usePage().props.auth.user;
+// @ts-ignore
+const avatar = ref(user.avatar);
 
 const form = useForm({
     name: user.name,
@@ -21,17 +24,20 @@ const form = useForm({
 
 const handleFileUpload = (event: Event) => {
     const fileInput = event.target as HTMLInputElement;
+
     router.post(route('profile.avatar'),
         {
             avatar: fileInput.files![0]
         },
         {
-            preserveScroll: true,
             onSuccess: () => {
-                router.reload({
-                    only: ['auth'],
-                });
+                avatar.value = URL.createObjectURL(fileInput.files![0]);
+
             },
+            onError: () => {
+                fileInput.value = '';
+            }
+            
         }
     );
 
@@ -47,7 +53,7 @@ const handleFileUpload = (event: Event) => {
             <div class="relative inline-block">
                 <div class="w-24 h-24 relative bg-white">
                     <!-- @vue-ignore -->
-                    <img :src="user.avatar" alt="avatar" class="w-full h-full object-cover  rounded-full" />
+                    <img :src="avatar" alt="avatar" class="w-full h-full object-cover  rounded-full" />
                     <div
                         class="absolute  bottom-0 right-0 z-[999999] transform translate-x-1/4 translate-y-1/4 bg-white rounded-full p-1">
                         <label for="file-input"
